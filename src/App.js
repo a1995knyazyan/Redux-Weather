@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import {configureStore} from '@reduxjs/toolkit';
+import {Route, Router } from "react-router-dom";
+import WeatherList from "./components/weather/weather";
+import SearchBar from "./components/search-bar/search-bar";
+import weatherSlice from "./features/weather";
+import {Provider} from "react-redux";
+
+const store = configureStore({
+    reducer: {
+        weather: weatherSlice
+    }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Provider store={store}>
+          <div className="App">
+              <header className="App-header">
+                  <SearchBar />
+              </header>
+              <main>
+                  <div>
+                      {/*<Router>*/}
+                      {/*    <Route path='/' component={WeatherList}>*/}
+                      {/*        <Route path='/current' component={WeatherList}/>*/}
+                      {/*    </Route>*/}
+                      {/*</Router>*/}
+                      <WeatherList />
+                  </div>
+              </main>
+          </div>
+      </Provider>
   );
 }
 
